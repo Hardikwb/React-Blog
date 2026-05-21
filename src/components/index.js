@@ -1,8 +1,16 @@
-import Header from "./header/Header"
-import Footer from "./footer/footer"
+import Header from "./Header/Header"
+import Footer from "./Footer/Footer"
 import Home from "./Home"
-export default{
+import Container from "./container/Container"
+import LogoutBtn from "./Header/LogoutBtn"
+import Logo from "./Logo"
+
+
+export{
     Header,
     Footer,
-    Home
+    Home,
+    Container,
+    LogoutBtn,
+    Logo
 }
