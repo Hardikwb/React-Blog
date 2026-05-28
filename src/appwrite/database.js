@@ -1,4 +1,4 @@
-import { Account, Client, Databases, Permission, Role } from "appwrite";
+import { Account, Client, Databases, ID, Permission, Query, Role } from "appwrite";
 import config from "../config/config";
 class Database{
     client = new Client();
@@ -16,14 +16,15 @@ class Database{
             const post = await this.databases.createDocument({
                 databaseId: config.appwriteDatabaseId,
                 collectionId: config.appwriteTableId,
-                // documentId: slug,
                 documentId: ID.unique(),
-                data:{title,content,featuredImage,status,userId},
+                data:{title,slug,content,featuredImage,status,userId},
             })
             console.log(post)
+            return post;
         }
         catch(error){
             console.log("Appwrite service :: createPost  error::",error)
+            throw error;
         }
     }
     
@@ -36,9 +37,11 @@ class Database{
                 data:{title,content,featuredImage,status},
             })
             console.log(post)
+            return post;
         }
         catch(error){
             console.log("Appwrite service :: updatePost  error::",error)
+            throw error;
         }
     }
 
@@ -54,7 +57,7 @@ class Database{
         }
         catch(error){
             console.log("Appwrite service :: deletePost  error::",error)
-            return false
+            throw error;
         }
     }
      
@@ -70,32 +73,28 @@ class Database{
         }
         catch(error){
             console.log("Appwrite service :: getPost  error::",error)
-            return {"error":error};
+            throw error;
         }
     }
     
 
-    async getAllPosts(){
+    async getAllPosts(queries = [Query.equal("status", "active")]){
         try{
             const posts = await this.databases.listDocuments({
                 databaseId: config.appwriteDatabaseId,
                 collectionId: config.appwriteTableId,
-                queries:[Query.equal("status","active")]
+                queries:queries,
             })
-            console.log(posts)
+            console.log("All the detched posts from the AppWrite Services: ",posts)
             return posts;
         }
         catch(error){
-            console.log("Appwrite service :: createPost  error::",error)
-            return {"error":error};
+            console.log("Appwrite service :: getAllPosts  error::",error)
+            throw error;
         }
     }
-
-
-
-
 }
 
-const database = new Database()
+const DatabaseServices = new Database()
 
-export default database
+export default DatabaseServices

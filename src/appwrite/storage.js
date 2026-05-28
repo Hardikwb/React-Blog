@@ -1,6 +1,6 @@
 import { Client, Storage, Permission, Role,ID,ImageGravity, ImageFormat } from "appwrite";
 import config from "../config/config";
-class Storage{
+class DataStorage{
     client = new Client();
     bucket;
     constructor(){
@@ -17,9 +17,9 @@ class Storage{
                 fileId: ID.unique(),
                 // file: document.getElementById('uploader').files[0],
                 file: file,
-                permissions: [Permission.read(Role.any())]
+                // permissions: [Permission.read(Role.any())]
             });
-            console.log(result);
+            // console.log(result);
             return result
         } 
         catch(error) {
@@ -75,6 +75,6 @@ class Storage{
     
 }
 
-const service = new Storage()
+const StorageService = new DataStorage()
 
-export default service
+export default StorageService

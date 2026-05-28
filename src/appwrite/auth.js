@@ -18,7 +18,7 @@ export class AuthService{
                 ID.unique(),email,password,name);
             if(userAccount){
                 // login
-                return this.Login({email,password});
+                return this.login({email,password});
             }
             else{
                 // more chance it is null
@@ -30,13 +30,14 @@ export class AuthService{
         }
     }
     
-    async Login({email,password}){
+    async login({email,password}){
         try {
             const user = await this.account.createEmailPasswordSession(email,password);    
             if(!user){
                 console.log("Wrong Credentials")
                 return "Wrong Credentials"
             }
+            return user
         } catch (error) {
             throw error
         }
@@ -44,7 +45,8 @@ export class AuthService{
     
     async getCurrentUser(){
         try {
-            return await this.account.get().toString()
+            return await this.account.get()
+            // return await this.account.get().toString()
         } 
         catch (error) {
             console.log("AppWrite Service :: getCurrentUser :: error ",error)
@@ -56,7 +58,7 @@ export class AuthService{
     async logout(){
         try {
             if(this.getCurrentUser){
-                return await account.deleteSessions();
+                return await this.account.deleteSessions();
             }
             return "User not authenticated"
         } catch (error) {
