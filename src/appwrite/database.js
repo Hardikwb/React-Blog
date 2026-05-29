@@ -19,7 +19,6 @@ class Database{
                 documentId: ID.unique(),
                 data:{title,slug,content,featuredImage,status,userId},
             })
-            console.log(post)
             return post;
         }
         catch(error){
@@ -36,7 +35,6 @@ class Database{
                 documentId: slug,
                 data:{title,content,featuredImage,status},
             })
-            console.log(post)
             return post;
         }
         catch(error){
@@ -52,7 +50,6 @@ class Database{
                 collectionId: config.appwriteTableId,
                 documentId: slug,
             })
-            console.log(result)
             return true
         }
         catch(error){
@@ -68,7 +65,6 @@ class Database{
                 collectionId: config.appwriteTableId,
                 documentId: slug,
             })
-            console.log(post)
             return post;
         }
         catch(error){
@@ -85,7 +81,6 @@ class Database{
                 collectionId: config.appwriteTableId,
                 queries:queries,
             })
-            console.log("All the detched posts from the AppWrite Services: ",posts)
             return posts;
         }
         catch(error){

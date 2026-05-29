@@ -15,11 +15,8 @@ class DataStorage{
             const result = await this.bucket.createFile({
                 bucketId: config.appwriteBucketId,
                 fileId: ID.unique(),
-                // file: document.getElementById('uploader').files[0],
                 file: file,
-                // permissions: [Permission.read(Role.any())]
             });
-            // console.log(result);
             return result
         } 
         catch(error) {
@@ -34,7 +31,6 @@ class DataStorage{
                 bucketId: config.appwriteBucketId,
                 fileId: fileId,
             });
-            console.log(result)
             return true
         } 
         catch(error) {
@@ -50,7 +46,6 @@ class DataStorage{
                 bucketId: config.appwriteBucketId,
                 fileId: fileId
             });
-            console.log(result)
         } 
         catch(error) {
             console.log("Appwrite :: getFile error::",error)
@@ -58,18 +53,17 @@ class DataStorage{
     }
     
     
-    async getFilePreview(fileId){
+    getFileView(fileId){
         try {
-            const result = await this.bucket.getFilePreview({
+            const result = this.bucket.getFileView({
                 bucketId: config.appwriteBucketId,
                 fileId: fileId,
-                gravity: ImageGravity.Center,
-                output: `${fileId}.Jpeg`,
             });
-            console.log(result)
+            return result.toString()
         } 
         catch(error) {
-            console.log("Appwrite :: getFilePreview error::",error)
+            console.log("Appwrite :: getFileView error::",error)
+            return null
         }
     }
     
