@@ -15,7 +15,8 @@ function App() {
     authService.getCurrentUser()
     .then((userData)=>{
       if(userData){
-        dispatch(login({userData}))
+        const parsedData = JSON.parse(JSON.stringify(userData));
+        dispatch(login(parsedData))
       }
       else{
         dispatch(logout())
